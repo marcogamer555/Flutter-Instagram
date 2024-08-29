@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class Button extends StatelessWidget {
   const Button({super.key, required this.text, this.onPressed});
 
-
   /// Crear un atributo llamado text que va a ser de tipo String
   final String text;
 
@@ -16,8 +15,8 @@ class Button extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.resolveWith<Color>(
-          /// El color cambia cuando presionamos el botón
           (Set<WidgetState> states) {
+            /// El color cambia cuando presionamos el botón
             if (states.contains(WidgetState.pressed)) {
               return Colors.blue;
             }

@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:instagram/screens/login_screen.dart';
 import 'package:instagram/widgets/button.dart';
+import 'package:instagram/widgets/instagram_logo.dart';
 
-// Scaffold
-// Column
-// Text
-// Image
-// Text
-
+// Scaffold [x]
+// Column [x]
+// Text [x]
+// Image [x]
+// Text [x]
+// Buttons 2 - FilledButton - TextButton [x]
+// BottomNavigationBar
 class AuthorizationScreen extends StatelessWidget {
   const AuthorizationScreen({super.key});
+
+  /// Siempre colocar esto -> poder interpretar que es un screen y
+  /// no un widget
+  static String routeName = 'authorization-screen';
 
   @override
   Widget build(BuildContext context) {
@@ -16,161 +23,178 @@ class AuthorizationScreen extends StatelessWidget {
       /// El column debe estar envuelto en un center
       body: Center(
         child: Column(
-          // Y debe ocupar el tamaño mínimo
+          /// Y debe ocupar el tamaño mínimo
           mainAxisSize: MainAxisSize.min,
           // Son los hijos del column que son Widgets
           children: [
             /// Widget 1
             /// Text -> nos sirve para renderizar un texto
-            const Text(
-              "Instagram",
+            // const Text(
+            //   "Instagram",
 
-              /// style es la propiedad que nos permite actualizar
-              style: TextStyle(
-                /// fontSize: tamaño del texto
-                fontSize: 50,
+            //   /// style es la propiedad que nos permite actualizar los estilos del texto
+            //   style: TextStyle(
+            //     /// fontSize: tamaño del texto
+            //     fontSize: 50,
 
-                /// fontWeight: peso de la fuente
-                fontWeight: FontWeight.w500,
+            //     /// fontWeight: peso de la fuente
+            //     fontWeight: FontWeight.w500,
 
-                /// color: color del texto
-                color: Colors.black,
-              ),
-            ),
+            //     /// color
+            //     color: Colors.black,
+            //   ),
+            // ),
+
+            const InstagramLogo(),
 
             /// Widget 2
-            /// SizedBox -> solamente crea una caja vacia
+            /// SizedBox -> solamente crea una caja vacía
             /// Limitar espacios -> del hijo
             const SizedBox(height: 40),
 
             /// Widget 3
             /// Colocar una imagen
-            /// 1. Imagen
-            /// 2. Colocar la imagen dentro del proyecto
-            /// 3. Referenciar la imagen pubspec
-            /// 4. Utilizar con los widgets
-            /// Renderizar la Imagen
+            /// 1. Imagen [x]
+            /// 2. Colocar la imagen dentro del proyecto [x]
+            /// 3. Referenciar la imagen pubspec [x]
+            /// 4. Utilizarla con los widgets
+            /// Renderizar una imagen
             /// 1. Image
             ///   assets - imagenes en los assets
-            /// network - url
-
-// Forma 0: Usando container...
-            // Container(
-            //   width: 85,
-            //   height: 85,
-            //   decoration: const BoxDecoration(
-            //     shape: BoxShape.circle,
-            //     image: DecorationImage(
-            //       image: AssetImage('assets/images/post.png'),
-            //       fit: BoxFit.cover,
-            //     ),
-            //   ),
-            // ),
-
-// Forma 1: ClipOval
+            ///   network - url
             const ClipOval(
               child: Image(
                 image: AssetImage('assets/avatars/5.png'),
                 height: 85,
                 width: 85,
-                fit: BoxFit.cover,
               ),
             ),
 
-// Forma 2: ClipRRect
+            /// ClipOval
+            // const ClipOval(
+            //   child: Image(
+            //     image: AssetImage('assets/images/post.png'),
+            //     height: 85,
+            //     width: 85,
+            //   ),
+            // ),
+            /// ClipRRect
             // ClipRRect(
-            //   // Solo en el top izquierdo se coloca un radio
-            //   // border
-            //   borderRadius:
-            //       BorderRadius.circular(100), // La mitad del ancho y alto
+            //   /// Solo en el top izquierdo se coloca un radio
+            //   // borderRadius: BorderRadius.only(
+            //   //   topLeft: Radius.circular(10)
+            //   // ),
+            //   borderRadius: BorderRadius.circular(100),
             //   child: const Image(
             //     image: AssetImage('assets/images/post.png'),
             //     height: 85,
             //     width: 85,
-            //     fit: BoxFit.cover,
             //   ),
             // ),
-
-// Forma 3: Avatar
+            /// Avatar
             // const CircleAvatar(
-            //   radius:42.5,
             //   backgroundImage: AssetImage('assets/images/post.png'),
+            //   radius: 42.5,
             // ),
 
             /// Widget 4
             /// SizedBox
-
             const SizedBox(height: 10),
 
             /// Widget 5
             /// Text
-
             const Text(
-              'MarcoJrSilva_95',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              'marcojrsilva_95',
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
 
             /// Widget 6
             /// SizedBox
-
             const SizedBox(height: 10),
 
             /// Widget 7
             /// Botones
-            /// FilledButton -> es un boton con relleno
+            /// FilledButton -> es un botón con relleno
             SizedBox(
               width: 300,
               height: 44,
               child: Button(
-                text: "Log in",
+                text: 'Log in',
                 onPressed: () {},
               ),
             ),
 
-            /// Widget 8
             /// TextButton
-            const SizedBox(height: 20),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                /// Navigator - estrategia 1
+                /// Push
+                /// A - B -> Pero la pantalla A se queda en el stack
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const LoginScreen(),
+                //   ),
+                // );
+                /// pushNamed -> Navegación por nombre
+                Navigator.pushNamed(context, LoginScreen.routeName);
+
+                /// Reemplazar el pushNamed
+                /// Navigator.pushReplacementNamed(context, routeName);
+                /// 1. Qué cambio en el stack.
+                /// 2. Qué paso con el appbar.
+                /// 3. Como podría regresar a la pantalla anterior. Authorization screen
+
+              },
+
+              /// Otra forma WidgetStatePropertyAll()
+              // style: ButtonStyle(
+              //   foregroundColor: WidgetStateProperty.all(Colors.yellow),
+              // ),
               child: const Text(
-                'Switch accounts',
-                style: TextStyle(
-                  color: Colors.blue,
-                ),
+                "Switch accounts",
+                style: TextStyle(color: Colors.blue),
               ),
             ),
           ],
         ),
       ),
 
-      /// BottonnavigationNav
-      ///
+      /// SafeArea -> Area de seguridad para que los widgets no desaparezcan
+      /// distribución de los dispositivos
+      /// 1. Container
+      /// 2. Text
+      /// 3. Button - GestureDetector
       bottomNavigationBar: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
             border: Border(
-              top: BorderSide(color: Colors.grey, width: 1),
-            ),
+                top: BorderSide(
+              color: Colors.grey,
+              width: 1,
+            )),
           ),
           height: 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                "Don't have an account? ",
-                style: TextStyle(color: Colors.grey),
+                "Dont't have an account? ",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                ),
               ),
               GestureDetector(
+                /// onTap: Detecta un click o un tap simple
                 onTap: () {
-                  print("Sign Up");
+                  print("Sing Up"); // flutter logs
                 },
                 child: const Text(
-                  "Sign up.",
+                  "Sign up",
                   style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w500),
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ],
