@@ -174,9 +174,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.blue,
                     ),
-                    recognizer: TapGestureRecognizer()..onTap =(){
-                      print("Redirection");
-                    },
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        print("Redirection");
+                      },
                   ),
                 ],
               ),
